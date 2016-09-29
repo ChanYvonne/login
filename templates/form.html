@@ -3,9 +3,10 @@
   <head> <title> {{ title }} </title> </head>
 
   <body>
-    <form>
-      Stuff:
-      <input type="text" name = "stuff"> <br>
+    <form action = "/authenticate/" method="POST">
+      <h1>Let's make an account </h1> <br>
+      Username: <input type="text" name = "user"> <br>
+      Password: <input type="password" name = "pass"> <br>
       <input type = "submit" value="go">
     </form>
   </body>
