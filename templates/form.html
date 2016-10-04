@@ -3,12 +3,13 @@
   <head> <title> {{ title }} </title> </head>
 
   <body>
-    <form action = "/authenticate/" method="POST">
-      <h1>Let's make an account </h1> <br>
+    <form action = "/loggedin/" method="POST">
+      <h1>Let's login into our account! </h1> <br>
+      <h2> {{ result }} </h2> <br>
       Username: <input type="text" name = "user"> <br>
       Password: <input type="password" name = "pass"> <br>
-      <input type = "submit" value="go">
+      <input type = "submit" value="go"> <br>
     </form>
+    <a href= "http://127.0.0.1:5000/"> Return home </a>
   </body>
-    
 </html>

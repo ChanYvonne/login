@@ -1,24 +1,40 @@
 from flask import Flask, render_template, request
-import random
+from utils import makeacc
+import random, cgitb, cgi
+cgitb.enable()
 
 app=Flask(__name__)
 
 @app.route("/")
-#@app.route("/login/")
+def home():
+    return render_template("home.html", title = "Home")
+
+@app.route("/login/")
 def login():
-    return render_template("form.html", title = "form")
+    return render_template("form.html", title = "Login", result = "")
+
+@app.route("/register/")
+def register():
+    return render_template("register.html", title = "Register")
 
 @app.route("/authenticate/", methods = ['POST'])
 def auth():
-    print request.form
     print request.form['user']
     print request.form['pass']
-    randnum = 2*random.random()
-    if randnum < 1:
-        return render_template("result.html", title = "Results", result = "SUCCESS")
+    if request.form['user'] in makeacc.users():
+        return render_template("result.html", result = "FAILURE! Please try again.", message = "Return and try again!")
     else:
-        return render_template("result.html", title = "Results", result = "FAILURE")
+        makeacc.writetofile()
+        return render_template("form.html", title = "login", result = "SUCCESS! Your account was created! Log in now.")
 
+@app.route("/loggedin/", methods = ['POST'])
+def loggedin():
+    if request.form['user'] in makeacc.users():
+        return render_template("result.html", result = "SUCCESS! You have logged in!", message = "Return to make another account!")
+    else:
+        return render_template("result.html", result = "FAILURE! Bad username", message = "Return to try again.")
+        
+    
 if __name__== '__main__':
     app.debug = True
     app.run()
