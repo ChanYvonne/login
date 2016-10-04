@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from utils import makeacc
-import random, cgitb, cgi
-cgitb.enable()
+import random
+
 
 app=Flask(__name__)
 
@@ -24,7 +24,7 @@ def auth():
     if request.form['user'] in makeacc.users():
         return render_template("result.html", result = "FAILURE! Please try again.", message = "Return and try again!")
     else:
-        makeacc.writetofile()
+        makeacc.writetofile(request.form['user'],request.form['pass'])
         return render_template("form.html", title = "login", result = "SUCCESS! Your account was created! Log in now.")
 
 @app.route("/loggedin/", methods = ['POST'])

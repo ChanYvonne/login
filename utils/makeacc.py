@@ -1,15 +1,12 @@
 #!/usr/bin/python
 
-import random, cgitb, cgi, md5, csv
-cgitb.enable()
+import random, md5
 
-def adduserandpass():
-    form = cgi.FieldStorage()
-    keys = form.keys()
+
+def adduserandpass(user,password):
     info = ""
-    if 'user' in keys and "pass" in keys:
-         if not form['user'].value in users() and form['user'].value.isalnum():
-                info+= form['user'].value.lower()+ ", " + encrypt(form['pass'].value) + "\n"
+    if not user in users(): #check if pass is same
+        info+= user.lower()+ ", " + encrypt(password) + "\n"
     return info
 
 def encrypt(password):
@@ -29,10 +26,8 @@ def users():
             ans.append(word.strip(","))
     return ans
 
-def writetofile():
-    form = cgi.FieldStorage()
-    keys = form.keys()
+def writetofile(user,password):
     x = open("logininfo.csv","a")
-    x.write(adduserandpass())
+    x.write(adduserandpass(user,password))
     x.close()
     
