@@ -30,7 +30,13 @@ def auth():
 @app.route("/loggedin/", methods = ['POST'])
 def loggedin():
     if request.form['user'] in makeacc.users():
-        return render_template("result.html", result = "SUCCESS! You have logged in!", message = "Return to make another account!")
+        print makeacc.encrypt(request.form['pass'])
+        print makeacc.encrypt(request.form['pass']) == makeacc.updatedict(request.form['user'])
+        print makeacc.updatedict(request.form['user'])
+        if makeacc.encrypt(request.form['pass']).strip() == makeacc.updatedict(request.form['user']).strip():
+            return render_template("result.html", result = "SUCCESS! You have logged in!", message = "Return to make another account!")
+        else:
+            return render_template("result.html", result = "FAILURE! Bad password", message = "Return to try again.")
     else:
         return render_template("result.html", result = "FAILURE! Bad username", message = "Return to try again.")
         
