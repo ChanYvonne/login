@@ -4,11 +4,14 @@ import random, os
 
 
 app=Flask(__name__)
-app.secret_key='[\xcf/\xc9\xdc\x1a\xc3\xe4\xc23\\v(\xad\x1d\xa7i4\x10J\x9b)\xbe\x82\\b\x12|\xf3\xfa\xfc\xdc'
+app.secret_key='\xcf/\xc9\xdc\x1a\xc3\xe4\xc23\\v(\xad\x1d\xa7i4\x10J\x9b)\xbe\x82\\b\x12|\xf3\xfa\xfc\xdc'
 
 @app.route("/")
 def home():
-    return render_template("home.html", title = "Home")
+    if request.form['user'] != session['user']:
+        return redirect(url_for('login'))
+    else:
+        return render_template("home.html", title = "Home",message = request.form['user']
 
 @app.route("/login/")
 def login():
