@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html>
-  <head> <title> {{ title }} </title> </head>
+  <head> <title>Register & Login</title> </head>
 
   <body>
-    <form action = "/loggedin/" method="POST">
-      <h1>Let's login into our account! </h1> <br>
-      <h2> {{ result }} </h2> <br>
+    <form action = "/authenticate/" method="POST">
+      <center><h1>Make and Login into Your Account!</h1> </center>
+      <h2> {{ result }} </h2> 
       Username: <input type="text" name = "user"> <br>
       Password: <input type="password" name = "pass"> <br>
-      <input type = "submit" value="go"> <br>
+      <input type="submit" name="register" value="register">
+      <input type="submit" name="login" value="login">
     </form>
-    <a href= "http://127.0.0.1:5000/"> Return home </a>
   </body>
 </html>
